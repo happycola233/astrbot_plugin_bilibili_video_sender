@@ -1,0 +1,63 @@
+{
+  "qn": {
+    "type": "string",
+    "description": "清晰度",
+    "default": "80",
+    "options": ["16", "32", "64", "74", "80", "112", "116", "120"],
+    "labels": [
+      "360P 流畅",
+      "480P 清晰",
+      "720P 高清",
+      "720P60 高帧率",
+      "1080P 高清",
+      "1080P+ 高码率",
+      "1080P60 高帧率",
+      "4K 超清"
+    ],
+    "hint": "想要的最高清晰度。视频没有、账号拿不到或超过大小上限时，自动用低一档的。不登录最高 720P，登录后最高 1080P，1080P+、1080P60、4K 要大会员。在链接后面加 ?qn=116 可以临时指定这一条的清晰度。"
+  },
+  "max_size_mb": {
+    "type": "int",
+    "description": "视频大小上限（MB）",
+    "default": 500,
+    "hint": "下载前按码率估算大小，超过就降清晰度，并在聊天里说明降到了多少。最低清晰度也超过时不下载。"
+  },
+  "max_duration_minutes": {
+    "type": "int",
+    "description": "视频时长上限（分钟）",
+    "default": 10,
+    "hint": "超过的视频不下载，只回一句提示。填 0 不限制。"
+  },
+  "group_at_only": {
+    "type": "bool",
+    "description": "群聊里只在 @ 我时解析",
+    "default": false,
+    "hint": "开启后，群里要 @ 机器人再发链接才会解析。私聊总是解析。"
+  },
+  "block_message": {
+    "type": "bool",
+    "description": "拦下解析过的消息",
+    "default": true,
+    "hint": "开启后，带视频链接的这条消息不再交给 AI 和其他插件，机器人不会对着一条链接莫名其妙地接话。"
+  },
+  "parse_card": {
+    "type": "bool",
+    "description": "解析 QQ 小程序卡片",
+    "default": true,
+    "hint": "手机 B 站「分享到 QQ」发出来的卡片。"
+  },
+  "notify_mode": {
+    "type": "string",
+    "description": "开始下载时的提示",
+    "default": "emoji",
+    "options": ["emoji", "text", "off"],
+    "labels": ["给消息贴表情", "发一条文字", "不提示"],
+    "hint": "私聊没法贴表情，会改成发文字。降清晰度、超时长、出错这些情况总会发文字说明。"
+  },
+  "reaction_emoji_id": {
+    "type": "int",
+    "description": "贴的表情 ID",
+    "default": 76,
+    "hint": "QQ 表情 ID：76 赞，124 OK，66 爱心，147 棒棒糖。"
+  }
+}
