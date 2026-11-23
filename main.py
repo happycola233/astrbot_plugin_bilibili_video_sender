@@ -62,7 +62,7 @@ def stream_urls(stream: dict) -> list[str]:
     PLUGIN_NAME,
     "happycola233",
     "解析 B 站视频链接和小程序卡片，按清晰度和大小上限下载视频发到聊天里",
-    "1.0.0",
+    "1.1.0",
 )
 class BilibiliVideoSender(Star):
     def __init__(self, context: Context, config: AstrBotConfig):
@@ -453,6 +453,24 @@ class BilibiliVideoSender(Star):
         self.admins_warned = False
         vip = "大会员" if nav.get("vipStatus") else "普通账号，最高 1080P"
         await self._reply(event, f"登录成功：{nav.get('uname', '')}（{vip}）。")
+
+    @filter.permission_type(filter.PermissionType.ADMIN)
+    @filter.command("b站退出", alias={"B站退出"})
+    async def logout(self, event: AstrMessageEvent):
+        """Log out of Bilibili and fall back to guest downloads. Admins only."""
+        event.stop_event()
+        if not self.bili.logged_in:
+            await self._reply(event, "现在没有登录 B 站。")
+            return
+        problem = await self.bili.logout()
+        if problem:
+            await self._reply(
+                event,
+                f"已删掉保存的登录，改按游客下载（最高 720P）。但 B 站没确认退出（{problem}），"
+                "可以在 B 站 App 的登录设备管理里把这台设备踢下线。",
+            )
+        else:
+            await self._reply(event, "已退出 B 站登录，改按游客下载（最高 720P）。")
 
     @filter.permission_type(filter.PermissionType.ADMIN)
     @filter.command("b站状态", alias={"B站状态"})

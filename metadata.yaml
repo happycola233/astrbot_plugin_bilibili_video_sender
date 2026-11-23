@@ -1,7 +1,7 @@
 name: astrbot_plugin_bilibili_video_sender
 display_name: B 站视频发送
 desc: 解析 B 站视频链接和 QQ 小程序卡片，按清晰度和大小上限下载视频发到聊天里。支持扫码登录、链接里指定清晰度、群聊只在 @ 时解析、拦下消息不交给 AI。
-version: v1.0.0
+version: v1.1.0
 author: happycola233
 repo: https://github.com/happycola233/astrbot_plugin_bilibili_video_sender
 support_platforms:

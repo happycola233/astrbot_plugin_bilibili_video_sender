@@ -390,6 +390,30 @@ class BiliClient:
         self._save()
         return 0
 
+    async def logout(self) -> str:
+        """Log out on Bilibili's side, then forget the login.
+
+        The login is forgotten even when Bilibili does not confirm the
+        logout; the device cookies (buvid) are kept.
+
+        Returns:
+            An empty string, or why Bilibili did not confirm the logout.
+        """
+        problem = ""
+        try:
+            await self._api(
+                "POST",
+                "https://passport.bilibili.com/login/exit/v2",
+                data={"biliCSRF": self.cookies.get("bili_jct", "")},
+            )
+        except BiliError as e:
+            problem = str(e)
+        self.cookies = {k: v for k, v in self.cookies.items() if k.startswith("buvid")}
+        self.refresh_token = ""
+        self.checked_at = 0.0
+        self._save()
+        return problem
+
     async def refresh_if_due(self) -> str:
         """Refresh the login cookies when Bilibili asks for it.
 
